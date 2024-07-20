@@ -23,7 +23,7 @@ export interface IApplicationProps {}
 function App() {
   loadAllMeiks();
   return (
-    <Router>
+    <Router basename="/Meiklejohn/">
       <AnimatedRouts />
     </Router>
   );
