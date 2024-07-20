@@ -8,7 +8,6 @@ import cardView from "../Search/cardView";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { changeInfo, singleMeik } from "./MeikHandler";
 import { interests } from "../Helpers/tags";
-import { stringToImage } from "../Helpers/ImageConvertor";
 
 interface IProfileProps {}
 
@@ -23,39 +22,26 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const [year, setYear] = useState("'26");
   const [tags, setTags] = useState([""]);
   const [uid, setUid] = useState("");
-  const [image, setImage] = useState<HTMLImageElement | null>(null);
   const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (user) {
         setUid(user.uid);
-        singleMeik(user.uid)
-          .then((data) => {
-            console.log(data);
-            setImage(stringToImage(String(data["image"])));
-            return data["data"]["user"];
-          })
-          .then((data) => {
-            const a = typeof data === "string" ? JSON.parse(data) : data;
-
-            return a;
-          })
-          .then((data) => {
-            setUsername(data.name);
-            setLocation(data.location);
-            setYear(data.year);
-            setTags(data.tags);
-            setEmail(data.email);
-            const constList = data.concentration.split(" & ");
-            setConcentration(constList[0]);
-            if (constList[1]) {
-              setConcentration2(" & " + constList[1]);
-            }
-            if (constList[2]) {
-              setConcentration3(" & " + constList[2]);
-            }
-          });
+        var data = singleMeik(user.uid);
+        setUsername(data.name);
+        setLocation(data.location);
+        setYear(data.year);
+        setTags(data.tags);
+        setEmail(data.email);
+        const constList = data.concentration.split(" & ");
+        setConcentration(constList[0]);
+        if (constList[1]) {
+          setConcentration2(" & " + constList[1]);
+        }
+        if (constList[2]) {
+          setConcentration3(" & " + constList[2]);
+        }
       }
     });
 
@@ -156,112 +142,120 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
           transition={{ duration: 0.2 }}
           className="profile-container"
         >
+          <span className="Title">Edit Your Profile!</span>
           <div className="profile-content">
-            <span className="Title">Edit Your Profile!</span>
-            <div>
+            <div className="info-container">
+              <b className="textHeader">Name:</b>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <b className="textHeader">Location:</b>
+              <input
+                data-testid="profile-location-input"
+                type="text"
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+              <b className="textHeader">Concentration:</b>
+              <select
+                id="Concentration"
+                value={concentration}
+                onChange={(e) => {
+                  setConcentration(e.target.value as concentrations);
+                }}
+              >
+                {Object.values(concentrations).map((conc) => (
+                  <option key={conc} value={conc}>
+                    {conc}
+                  </option>
+                ))}
+              </select>
+              {addCon()}
+              <button
+                className="add-concentration"
+                onClick={() => {
+                  if (concentrationNum < 3) {
+                    setConNum(concentrationNum + 1);
+                  }
+                }}
+              >
+                Add Concentration
+              </button>
+              <b className="textHeader">Tags:</b>
+              <select
+                id="Tags"
+                value={tags}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (tags.includes(value)) {
+                    const updatedTags = tags.filter((tag) => tag !== value);
+                    console.log(updatedTags);
+                    setTags(updatedTags);
+                  } else {
+                    setTags([...tags, e.target.value]);
+                  }
+                }}
+                multiple
+              >
+                {Object.values(interests).map((conc) => (
+                  <option key={conc} value={conc}>
+                    {conc}
+                  </option>
+                ))}
+              </select>
+              <b className="textHeader">Year:</b>
+              <select
+                id="year"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+              >
+                <option value="'27">'27</option>
+                <option value="'26">'26</option>
+                <option value="'25">'25</option>
+                <option value="'24">'24</option>
+              </select>
+              <button
+                className="Save"
+                onClick={() => {
+                  changeInfo(
+                    uid,
+                    username,
+                    location,
+                    year,
+                    String(tags),
+                    concentration + concentration2 + concentration3,
+                    "meiks"
+                  );
+                }}
+              >
+                Save Changes
+              </button>
+              <button
+                className="SignOut"
+                onClick={() => {
+                  signOut(auth);
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
+            <div style={{ transform: "scale(1.5)" }}>
               {cardView({
                 name: username,
                 concentration: concentration + concentration2 + concentration3,
                 email: email,
                 year: year,
                 location: location,
-                uid: "",
-                imageURL: "",
+                id: "",
+                imageURL: "10",
                 tags: tags,
                 text: "",
               })}
             </div>
-
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              data-testid="profile-location-input"
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-            <select
-              id="Concentration"
-              value={concentration}
-              onChange={(e) => {
-                setConcentration(e.target.value as concentrations);
-              }}
-            >
-              {Object.values(concentrations).map((conc) => (
-                <option key={conc} value={conc}>
-                  {conc}
-                </option>
-              ))}
-            </select>
-            {addCon()}
-            <button
-              onClick={() => {
-                if (concentrationNum < 3) {
-                  setConNum(concentrationNum + 1);
-                }
-              }}
-            >
-              Add Concentration
-            </button>
-            <select
-              id="Tags"
-              value={tags}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (tags.includes(value)) {
-                  const updatedTags = tags.filter((tag) => tag !== value);
-                  console.log(updatedTags);
-                  setTags(updatedTags);
-                } else {
-                  setTags([...tags, e.target.value]);
-                }
-              }}
-              multiple
-            >
-              {Object.values(interests).map((conc) => (
-                <option key={conc} value={conc}>
-                  {conc}
-                </option>
-              ))}
-            </select>
-            <select
-              id="year"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-            >
-              <option value="'27">'27</option>
-              <option value="'26">'26</option>
-              <option value="'25">'25</option>
-              <option value="'24">'24</option>
-            </select>
-            <button
-              onClick={() => {
-                changeInfo(
-                  uid,
-                  username,
-                  location,
-                  year,
-                  String(tags),
-                  concentration + concentration2 + concentration3,
-                  "meiks"
-                );
-              }}
-            >
-              Save Changes
-            </button>
-            <button
-              className="SignOut"
-              onClick={() => {
-                signOut(auth);
-              }}
-            >
-              Sign Out
-            </button>
           </div>
         </motion.div>
       </VerticalScroll>

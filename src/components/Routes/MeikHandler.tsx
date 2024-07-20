@@ -46,12 +46,25 @@ export function algoMeiks(uid: String): Promise<AlgoMeiksResponse> {
     });
 }
 
-export function singleMeik(meikId: String) {
-  return fetch("http://localhost:3232/getMeikById?id=" + meikId)
-    .then((response) => response.json())
-    .catch((e) => {
-      return "ERROR: " + e;
-    });
+export function singleMeik(meikId: String): Meik {
+  var searchResults: Meik = {
+    concentration: "concentration",
+    email: "example@brown.edu",
+    id: "",
+    imageURL: "",
+    location: "place,country",
+    name: "Example Name",
+    tags: [""],
+    text: "Example Text",
+    year: "'26",
+  };
+  AllMeikData.forEach((meik) => {
+    if (meik.id.includes(meikId.toString())) {
+      searchResults = meik;
+      return;
+    }
+  });
+  return searchResults;
 }
 interface AlgoMeiksResponse {
   uid: string;

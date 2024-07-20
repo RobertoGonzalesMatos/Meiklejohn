@@ -12,8 +12,3 @@
   overflow-y: auto;
   max-height: 90vh; /* Adjust the max height as needed */
 }
-
-.vertical-scroll-content {
-  display: flex;
-  flex-direction: column;
-}
