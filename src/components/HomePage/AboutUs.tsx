@@ -11,7 +11,7 @@ function AboutUsPage() {
       <div className="container">
         <section className="about">
           <div className="about-picture">
-            <img className="picture" src="/meikDay.jpg"></img>
+            <img className="picture" src="/Meiklejohn/meikDay.jpg"></img>
           </div>
           <div className="about-content">
             <h2 className="about-content-h2">The Meik Program:</h2>

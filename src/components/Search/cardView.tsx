@@ -15,7 +15,7 @@ interface Meik {
 }
 function cardView(props: Meik) {
   const imageHtml = document.createElement("img") as HTMLImageElement;
-  imageHtml.src = "/image-" + props.imageURL + ".webp";
+  imageHtml.src = "/Meiklejohn/image-" + props.imageURL + ".webp";
   return (
     <div className="card">
       <div

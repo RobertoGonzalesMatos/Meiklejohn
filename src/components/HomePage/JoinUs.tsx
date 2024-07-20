@@ -10,7 +10,7 @@ function JoinUsPage() {
       <div className="container">
         <div className="row">
           <div className="team-item">
-            <img src="/join3.jpg" className="image"></img>
+            <img src="/Meiklejohn/join3.jpg" className="image"></img>
             <h3 className="team-item-h3">Personalized Academic Guidance</h3>
             <div data-testid="join-test" className="team-info">
               <p>
@@ -24,7 +24,7 @@ function JoinUsPage() {
             </div>
           </div>
           <div className="team-item">
-            <img src="/join2.jpg" className="image"></img>
+            <img src="/Meiklejohn/join2.jpg" className="image"></img>
             <h3 className="team-item-h3">
               Comprehensive Support Beyond Academics
             </h3>
@@ -41,7 +41,7 @@ function JoinUsPage() {
             </div>
           </div>
           <div className="team-item">
-            <img src="/join1.jpg" className="image"></img>
+            <img src="/Meiklejohn/join1.jpg" className="image"></img>
             <h3 className="team-item-h3">
               Building a Strong Community and Network
             </h3>
