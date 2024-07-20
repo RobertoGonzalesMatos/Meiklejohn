@@ -159,21 +159,17 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
           <div className="profile-content">
             <span className="Title">Edit Your Profile!</span>
             <div>
-              {cardView(
-                {
-                  name: username,
-                  concentration:
-                    concentration + concentration2 + concentration3,
-                  email: email,
-                  year: year,
-                  location: location,
-                  uid: "",
-                  imageURL: "",
-                  tags: tags,
-                  text: "",
-                },
-                image
-              )}
+              {cardView({
+                name: username,
+                concentration: concentration + concentration2 + concentration3,
+                email: email,
+                year: year,
+                location: location,
+                uid: "",
+                imageURL: "",
+                tags: tags,
+                text: "",
+              })}
             </div>
 
             <input

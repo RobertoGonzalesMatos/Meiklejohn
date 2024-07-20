@@ -91,7 +91,7 @@ const HomePage: React.FunctionComponent<IHomeProps> = (props) => {
                 {!loading && (
                   <motion.div className="transition-image final">
                     <motion.img
-                      src={"/images/image-2.jpg"}
+                      src={"/image-2.jpg"}
                       layoutId="main-image-1"
                       transition={{ duration: 0.5 }}
                     />

@@ -257,7 +257,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                     key={index}
                     style={{ display: "inline-block" }}
                   >
-                    {cardView(meikObject, images[meikObject.uid])}
+                    {cardView(meikObject)}
                   </div>
                 ))}
               </div>

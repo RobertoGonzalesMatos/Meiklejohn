@@ -15,8 +15,6 @@ const Meiks: React.FunctionComponent<IMeikProps> = (props) => {
   const [tags, setTags] = useState<string[]>([]);
   const [meikObjects, setMeikObjects] = useState<Meik[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [imagesBack, setImagesBack] = useState<HTMLImageElement[]>([]);
   const [uid, setUid] = useState("");
 
   useEffect(() => {

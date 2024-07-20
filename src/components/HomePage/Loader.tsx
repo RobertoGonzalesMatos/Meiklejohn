@@ -68,7 +68,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
       >
         <motion.div className="transition-image" variants={itemMain}>
           <motion.img
-            src={`/images/image-2.jpg`}
+            src={`/image-2.jpg`}
             alt="random alt"
             layoutId="main-image-1"
             transition={{ duration: 0.5 }}
@@ -109,11 +109,7 @@ export const ImageBlock: React.FC<ImageBlockProps> = ({
 }) => {
   return (
     <motion.div className={`image-block ${cssId}`} variants={variants}>
-      <Image
-        src={`/images/${id}.webp`}
-        fallback={`/images/${id}.jpg`}
-        alt={id}
-      />
+      <Image src={`/${id}.webp`} fallback={`/${id}.jpg`} alt={id} />
     </motion.div>
   );
 };
