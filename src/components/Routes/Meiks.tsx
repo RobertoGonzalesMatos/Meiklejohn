@@ -41,20 +41,13 @@ const Meiks: React.FunctionComponent<IMeikProps> = (props) => {
   };
 
   useEffect(() => {
-    if (meikObjects.length === 0 || tags.length === 0) {
-      if (AllMeikData.length === 0) {
-        setTimeout(() => {}, 2000);
-      }
-      setMeikObjects(AllMeikData);
-    }
-  }, []);
-
-  useEffect(() => {
     const ul = document.querySelector("ul");
     const input = ul?.querySelector("input");
 
     const handleKey = (ev: KeyboardEvent) => {
+      // if (ev === KeyboardEvent){
       addTag(ev);
+      // }
     };
 
     input?.addEventListener("keyup", handleKey);
@@ -64,11 +57,10 @@ const Meiks: React.FunctionComponent<IMeikProps> = (props) => {
         setMeikObjects(AllMeikData);
       }, 500);
     }
-
-    if (meikObjects.length === 0 || tags.length === 0) {
-      setMeikObjects(AllMeikData);
-    } else {
+    if (tags.length !== 0) {
       setMeikObjects(updateSearch(tags));
+    } else if (meikObjects.length === 0 || tags.length === 0) {
+      setMeikObjects(AllMeikData);
     }
     return () => {
       input?.removeEventListener("keyup", handleKey);

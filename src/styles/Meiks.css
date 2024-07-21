@@ -40,9 +40,20 @@
 
 .Rows {
   width: 400px;
-  padding-left: 130px;
 }
 
 .MeikBody {
-  padding-left: 130px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+@media (max-width: 1220px) {
+  .MeikBody {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    padding: 10px;
+  }
 }

@@ -17,7 +17,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   const [concentration, setConcentration] = useState("Visual Arts");
   const [concentration2, setConcentration2] = useState("");
   const [concentration3, setConcentration3] = useState("");
-  const [concentrationNum, setConNum] = useState(1);
+  const [doubleConcentrating, addConcentration] = useState(false);
   const [location, setLocation] = useState("example,RI");
   const [year, setYear] = useState("'26");
   const [tags, setTags] = useState([""]);
@@ -49,7 +49,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
   }, []);
 
   function addCon() {
-    if (concentrationNum === 2) {
+    if (doubleConcentrating) {
       return (
         <div>
           <label htmlFor="Concentration2">Concentration 2:</label>
@@ -71,51 +71,6 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
             ))}
           </select>
         </div>
-      );
-    } else if (concentrationNum === 3) {
-      return (
-        <>
-          <div>
-            <label htmlFor="Concentration2">Concentration 2:</label>
-            <select
-              id="Concentration2"
-              value={concentration2.replace(" & ", "")}
-              onChange={(e) => {
-                if (e.target.value != "--") {
-                  setConcentration2(" & " + e.target.value);
-                } else {
-                  setConcentration2("");
-                }
-              }}
-            >
-              {Object.values(interests).map((int) => (
-                <option key={int} value={int}>
-                  {int}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="Concentration3">Concentration 3:</label>
-            <select
-              id="Concentration3"
-              value={concentration3.replace(" & ", "")}
-              onChange={(e) => {
-                if (e.target.value != "--") {
-                  setConcentration3(" & " + e.target.value);
-                } else {
-                  setConcentration3("");
-                }
-              }}
-            >
-              {Object.values(concentrations).map((conc) => (
-                <option key={conc} value={conc}>
-                  {conc}
-                </option>
-              ))}
-            </select>
-          </div>
-        </>
       );
     }
     return null;
@@ -178,9 +133,7 @@ const Profile: React.FunctionComponent<IProfileProps> = (props) => {
               <button
                 className="add-concentration"
                 onClick={() => {
-                  if (concentrationNum < 3) {
-                    setConNum(concentrationNum + 1);
-                  }
+                  addConcentration(!doubleConcentrating);
                 }}
               >
                 Add Concentration
